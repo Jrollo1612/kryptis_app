@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kryptis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <span class="logo-text">KRYPTIS</span>
+      <span class="header-subtitle">Traducteur de Codes</span>
+    </div>
+  </header>
+
+  <!-- Onglets -->
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="morse">⚫ Morse</button>
+    <button class="tab-btn" data-tab="vigenere">🔑 Vigenère</button>
+    <button class="tab-btn" data-tab="avocat">⚖️ Avocat</button>
+    <button class="tab-btn" data-tab="caesar">🏛️ César</button>
+    <button class="tab-btn" data-tab="rot13">🔄 ROT13</button>
+    <button class="tab-btn" data-tab="binary">💻 Binaire</button>
+  </nav>
+
+  <!-- Contenu des onglets -->
+  <main class="tab-content">
+
+    <!-- MORSE -->
+    <section id="tab-morse" class="tab-panel active">
+      <div class="panel-inner">
+        <div class="mode-toggle">
+          <button class="toggle-btn active" id="morse-encode-btn" onclick="setMorseMode('encode')">Texte → Morse</button>
+          <button class="toggle-btn" id="morse-decode-btn" onclick="setMorseMode('decode')">Morse → Texte</button>
+        </div>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="morse-input" placeholder="Tapez votre texte..." oninput="runMorse()"></textarea>
+          </div>
+          <div class="io-arrow">→</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="morse-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('morse-output')">Copier</button>
+          </div>
+        </div>
+        <!-- Clavier Morse rapide -->
+        <div class="morse-keyboard">
+          <span class="kbd-label">Clavier rapide :</span>
+          <button class="morse-key" onclick="insertMorse('🟣')">🟣 (·)</button>
+          <button class="morse-key" onclick="insertMorse('➖')">➖ (–)</button>
+          <button class="morse-key" onclick="insertMorse('/')">/ (séparateur lettre)</button>
+          <button class="morse-key" onclick="insertMorse('//')">// (séparateur mot)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIGENERE -->
+    <section id="tab-vigenere" class="tab-panel">
+      <div class="panel-inner">
+        <div class="key-row">
+          <label>Clé secrète</label>
+          <input type="text" id="vig-key" placeholder="ex: SOLEIL" oninput="runVigenere()" />
+        </div>
+        <div class="mode-toggle">
+          <button class="toggle-btn active" id="vig-encode-btn" onclick="setVigMode('encode')">Encoder</button>
+          <button class="toggle-btn" id="vig-decode-btn" onclick="setVigMode('decode')">Décoder</button>
+        </div>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="vig-input" placeholder="Texte à chiffrer..." oninput="runVigenere()"></textarea>
+          </div>
+          <div class="io-arrow">→</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="vig-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('vig-output')">Copier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVOCAT (César +10) -->
+    <section id="tab-avocat" class="tab-panel">
+      <div class="panel-inner">
+        <p class="cipher-desc">Le chiffre <b>Avocat</b> est un César avec un décalage fixe de <b>+10</b> (A→K, B→L…)</p>
+        <div class="mode-toggle">
+          <button class="toggle-btn active" id="av-encode-btn" onclick="setAvocatMode('encode')">Encoder</button>
+          <button class="toggle-btn" id="av-decode-btn" onclick="setAvocatMode('decode')">Décoder</button>
+        </div>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="av-input" placeholder="Texte à chiffrer..." oninput="runAvocat()"></textarea>
+          </div>
+          <div class="io-arrow">→</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="av-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('av-output')">Copier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÉSAR -->
+    <section id="tab-caesar" class="tab-panel">
+      <div class="panel-inner">
+        <div class="key-row">
+          <label>Décalage : <span id="caesar-val">3</span></label>
+          <input type="range" id="caesar-shift" min="1" max="25" value="3"
+            oninput="document.getElementById('caesar-val').textContent=this.value; runCaesar()" />
+        </div>
+        <div class="mode-toggle">
+          <button class="toggle-btn active" id="cs-encode-btn" onclick="setCaesarMode('encode')">Encoder</button>
+          <button class="toggle-btn" id="cs-decode-btn" onclick="setCaesarMode('decode')">Décoder</button>
+        </div>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="cs-input" placeholder="Texte à chiffrer..." oninput="runCaesar()"></textarea>
+          </div>
+          <div class="io-arrow">→</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="cs-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('cs-output')">Copier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROT13 -->
+    <section id="tab-rot13" class="tab-panel">
+      <div class="panel-inner">
+        <p class="cipher-desc"><b>ROT13</b> est un César à décalage 13 — encoder = décoder.</p>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="rot-input" placeholder="Texte..." oninput="runRot13()"></textarea>
+          </div>
+          <div class="io-arrow">⇄</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="rot-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('rot-output')">Copier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BINAIRE -->
+    <section id="tab-binary" class="tab-panel">
+      <div class="panel-inner">
+        <div class="mode-toggle">
+          <button class="toggle-btn active" id="bin-encode-btn" onclick="setBinMode('encode')">Texte → Binaire</button>
+          <button class="toggle-btn" id="bin-decode-btn" onclick="setBinMode('decode')">Binaire → Texte</button>
+        </div>
+        <div class="io-row">
+          <div class="io-col">
+            <label>Entrée</label>
+            <textarea id="bin-input" placeholder="Texte ou binaire..." oninput="runBinary()"></textarea>
+          </div>
+          <div class="io-arrow">→</div>
+          <div class="io-col">
+            <label>Sortie</label>
+            <textarea id="bin-output" placeholder="Résultat..." readonly></textarea>
+            <button class="copy-btn" onclick="copyOutput('bin-output')">Copier</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="logic.js"></script>
+</body>
+</html>
