@@ -17,7 +17,26 @@ const MORSE = {
   'Ä':'🟣➖🟣➖','Ü':'🟣🟣➖➖','Ö':'➖➖➖🟣','Ç':'➖🟣🟣🟣🟣',
 };
 const REVERSE_MORSE = Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[v,k]));
+const { ipcRenderer } = require('electron');
 
+ipcRenderer.on('open-settings', () => {
+  openSettings();
+});
+const iframe=document.querySelector("iframe");
+document.AddEventListener("DOMContentLoaded",() => {
+  iframe.hidden=true;
+});
+function openSettings() {
+  iframe.hidden=false;
+  document.querySelector("main").hidden=true;
+  document.querySelector("nav").hidden=true
+};
+document.getElementById("close").addEventListener("click",closeSettings);
+function closeSettings() {
+  document.querySelector("main").hidden=false;
+  document.querySelector("nav").hidden=false;
+  iframe.hidden=true;
+};
 // ── Onglets ──────────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {

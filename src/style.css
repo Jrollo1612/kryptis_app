@@ -39,9 +39,12 @@ header {
   -webkit-app-region: drag;
 }
 .header-inner { display: flex; align-items: baseline; gap: 12px; }
-
+@font-face {
+    font-family: "Codega";
+    src: url("Codega.woff2") format("woff2")
+}
 .logo-text {
-  font-family: 'Courier New', monospace;
+  font-family:"Codega", monospace;
   font-size: 22px;
   font-weight: 900;
   letter-spacing: 6px;
