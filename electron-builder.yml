@@ -1,0 +1,24 @@
+# electron-builder.yml
+appId: com.kryptis.app
+directories:
+  output: dist
+
+win:
+  icon: src/favicon.ico
+  target:
+    - msi
+    - portable
+
+mac:
+  category: public.app-category.utilities
+  icon: src/favicon.icns
+  target:
+    - dmg
+    - pkg
+
+linux:
+  category: Utility
+  icon: src/icon.png
+  target:
+    - AppImage
+    - deb
