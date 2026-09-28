@@ -23,8 +23,8 @@ function createWindow() {
     {
       label: 'Paramètres',
       submenu: [
-        {label: 'Changer la langue',click: () => win.webContents.send('open-settings')},
-        { type: 'separator' },
+        //{label: 'Changer la langue',click: () => win.webContents.send('open-settings')},
+        //{ type: 'separator' },
         { label: 'Noter maintenant', click: () => require('electron').shell.openExternal('https://kryptis.netlify.app/reviews?source=app') },
         { type: 'separator' },
         { role: 'quit', label: 'Quitter' }

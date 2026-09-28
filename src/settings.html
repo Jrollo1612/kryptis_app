@@ -8,6 +8,37 @@
     <script src="logic.js"></script>
 </head>
 <body>
+    <h1>Settings</h1>
+    <label for="language">Language:</label>
+    <select id="language" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+    </select>
+    <script>
+        // Load the saved language preference when the settings page is opened
+        window.onload = function() {
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                document.getElementById('language').value = savedLanguage;
+            }
+        };
+
+        function changeLanguage(language) {
+            // Save the selected language to localStorage
+            localStorage.setItem('language', language);
+            // Save the language to language.json file
+            const fs = require('fs');
+            const path = require('path');
+            const languageFilePath = path.join(__dirname, 'language.json');
+            const languageData = { language: language };
+            fs.writeFileSync(languageFilePath, JSON.stringify(languageData));
+            // Optionally, you can also send a message to the main process to update the app's language
+            window.parent.postMessage({ type: 'change-language', language: language }, '*');
+        }
+    </script>
     <button onclick="window.parent.closeSettings();">Save & Close</button>
 </body>
 </html>
