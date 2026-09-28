@@ -2,7 +2,8 @@
   "name": "kryptis",
   "version": "1.0.0",
   "description": "Kryptis - Traducteur de Codes",
-  "author": "Kryptis",
+  "author": "Kryptis Team",
+  "author.email": "jojotheboss184@outlook.fr",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
