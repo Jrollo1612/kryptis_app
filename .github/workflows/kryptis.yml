@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/favicon.ico --win portable,msi
+      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/favicon.ico --win
       - uses: actions/upload-artifact@v4
         with:
           name: kryptis-windows
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/icon.png --linux deb,AppImage
+      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/icon.png --linux
       - uses: actions/upload-artifact@v4
         with:
           name: kryptis-linux
@@ -45,7 +45,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/favicon.icns --mac dmg,pkg
+      - run: npx electron-builder --config.extraMetadata.name=kryptis --config.extraMetadata.version=2.0.0 --config.extraMetadata.author="Kryptis Team" --config.extraMetadata.icon=src/favicon.icns --mac
       - uses: actions/upload-artifact@v4
         with:
           name: kryptis-macos
